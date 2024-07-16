@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const dev_db_url = require("./dev_db_url");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -22,12 +22,14 @@ const limiter = RateLimit({
 });
 // Apply rate limiter to all requests
 app.use(limiter);
+// const dev_db_url = "mongodb+srv://nguyenjohnly25:Byu1n6k4E0J97gvl@cluster0.gyo5stx.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0"
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-const dev_db_url = "mongodb+srv://nguyenjohnly25:Byu1n6k4E0J97gvl@cluster0.gyo5stx.mongodb.net/local_library?retryWrites=true&w=majority&appName=Cluster0"
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+
 
 main().catch((err) => console.log(err));
 async function main() {
